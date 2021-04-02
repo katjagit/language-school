@@ -1,0 +1,94 @@
+/* the layout part of the user area */
+
+.user {
+    display: flex;
+}
+
+.sidebar {
+    width: 35%;
+    background: rgb(240, 238, 238);
+}
+
+.sidebar h2 {
+    text-align: center;
+}
+
+.sidebar ul {
+    width: 35%;
+    margin: 0 auto;
+    padding-bottom: 6em;
+    padding-left: 6em;
+}
+
+.sidebar img {
+    width: 40%;
+    margin: 0 auto;
+    display: block;
+    padding-top: 10%;
+    padding-bottom: 8%;
+}
+
+.content {
+    padding: 1em 5em 10em 5em;
+    width: 65%;
+}
+
+.content h2 {
+    text-align: center;
+}
+
+#start-button {
+    margin: 13%
+}
+
+.edit-button,
+.delete-button {
+    background: white;
+    padding: .2em 1.4em;
+    font-size: 1em;
+    font-weight: 700;
+    border: 3px solid #ffffff;
+    border-radius: 2%;
+    color: rgb(60, 136, 207);
+    display: inline;
+    margin-right: 5px;
+    margin-bottom: 7px;
+}
+
+#edit-course label {
+    width: 8em;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+    background: rgb(230, 73, 73);
+    border: 3px solid rgb(230, 73, 73);
+    color: white;
+    cursor: pointer;
+}
+
+@media screen and (max-width:1310px) {
+    .sidebar ul {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width:965px) {
+    .sidebar ul {
+        width: auto;
+        padding-left: 2em;
+    }
+}
+
+@media screen and (max-width:556px) {
+    .user {
+        flex-wrap: wrap;
+    }
+    .sidebar {
+        width: auto;
+    }
+    .sidebar ul {
+        padding-bottom: 1em;
+        width: 40%;
+    }
+}
