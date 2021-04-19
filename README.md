@@ -6,3 +6,8 @@ Next step: rewrite the code using OOP and outsourse the PHP code for pages 'regi
 Already made two classes (lib/classes): 
 - Db.class.php using PDO
 - User.class.php
+
+![image](https://user-images.githubusercontent.com/16179891/115300686-8da0f380-a160-11eb-8d79-06806016ef28.png)
+![image](https://user-images.githubusercontent.com/16179891/115300597-6f3af800-a160-11eb-8ae3-5d2c120d1746.png)
+![image](https://user-images.githubusercontent.com/16179891/115300949-e3759b80-a160-11eb-9111-66362cf11dc2.png)
+
