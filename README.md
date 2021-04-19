@@ -1,5 +1,8 @@
 language-school
 
-A PHP website with a learning management system, user and teacher account, created for learning purposes.
+A PHP website with a learning management system, user and teacher account, self-generated lecture pages. Created for learning purposes.
 
-The next step: replace mysqli connection with PDO.
+Next step: rewrite the code using OOP and outsourse the PHP code for pages 'register.php', 'login.php'
+Already made two classes (lib/classes): 
+- Db.class.php using PDO
+- User.class.php
