@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 require '../parts/bootstrap.php';
+require_once '../lib/classes/User.class.php';
 
 $page_title = 'Registrierung';
 $active = 'register';
@@ -11,49 +12,52 @@ $js_include_list = [
     'jquery/validate/localization/messages_de.min.js',
     'form-validation.js'];
 
-include PATH. 'parts/head.php';
+require PATH. 'parts/head.php';
 
 if (request_is('post')) {
 
-    $name = request('name');
-    $lastname = request('lastname');
-    $email = request('email');
-    $password = request('password');
-    $password_confirmation = request('password_confirmation');
-    $status = request('status');
+    $arg = [
+        ':name' => request('name'),
+        ':lastname' => request('lastname'),
+        ':email' => request('email'),
+        ':password' => request('password'),
+        ':status' =>request('status')
+    ];
 
-    if ($name === '') {
+    $password_confirmation = request('password_confirmation');
+
+    if ($arg[':name'] === '') {
         $errors['name'] = 'Das Feld darf nicht leer sein';
     }
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if (!filter_var($arg[':email'], FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = 'Bitte eine gültige Email eingeben';
     }
 
-    if ($email === '') {
+    if ($arg[':email'] === '') {
         $errors['email'] = 'Das Feld darf nicht leer sein';
     }
 
-    if ($password !== $password_confirmation) {
+    if ($arg[':password'] !== $password_confirmation) {
         $errors['password-confirmation'] = 'Die Passwörter stimmen nicht überein';
     }
 
-    if (mb_strlen($password) < 6) {
+    if (mb_strlen($arg[':password']) < 6) {
         $errors['password'] = 'Passwort muss mind. 5 Zeichen haben';
     }
 
-    if ($password === '') {
+    if ($arg[':password'] === '') {
         $errors['password'] = 'Das Feld darf nicht leer sein';
     }
 
-    if ($status === '') {
+    if ($arg[':status'] === '') {
         $errors['status'] = 'Bitte wählen Sie einen Punkt';
     }
 
     if (!$errors) {
-        $user = db_raw_first(
-            "SELECT * FROM `users` WHERE `email` = " . db_prepare($email)
-        );
+        $sql = "SELECT * FROM `users` WHERE `email` = :email";
+        $email = [':email' => $arg[':email']];
+        $user = $db->selectFirstRow($sql, $email);
 
         if ($user) {
             $errors['email'] = 'Diese Email existiert bereits';
@@ -61,13 +65,11 @@ if (request_is('post')) {
     }
 
     if (!$errors) {
-        db_insert('users', [
-            'name' => $name,
-            'lastname' => $lastname,
-            'email' => $email,
-            'password' => password_hash($password, PASSWORD_DEFAULT),
-            'status' => $status
-        ]);
+        $hash_password = array(':password' => password_hash($arg[':password'], PASSWORD_DEFAULT));
+        $arg = array_replace($arg, $hash_password);
+
+        $new_user = new User();
+        $new_user->register($arg);
 
         redirect(BASE_URL.'auth/login.php');
     }
