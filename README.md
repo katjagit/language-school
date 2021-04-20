@@ -1,4 +1,4 @@
-language-school
+"Language School"
 
 A PHP website with a learning management system, user and teacher account, self-generated lecture pages, sending homeworks, get feedback from teacher, create new courses. Created for learning purposes.
 
